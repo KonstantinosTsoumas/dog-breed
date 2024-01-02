@@ -43,7 +43,8 @@ class ConfigurationManager:
 
         data_ingestion_config = DataIngestionConfig(
             root_dir=config['root_dir'],
-            source_URL=config['source_URL'],
+            source_url=config['source_url'],
+            local_source_file=config.get('local_source_file'),
             local_data_file=config['local_data_file'],
             unzip_dir=config['unzip_dir']
         )
