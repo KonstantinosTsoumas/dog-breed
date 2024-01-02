@@ -27,8 +27,9 @@ class DataIngestion:
                 logger.info(f"Local file {self.config.local_source_file} copied to {self.config.local_data_file}")
             else:
                 # Download from URL (existing logic)
+                logger.info(f"Local source file not found or not specified, attempting to download from URL.")
                 filename, headers = request.urlretrieve(
-                    url=self.config.source_URL,
+                    url=self.config.source_url,
                     filename=self.config.local_data_file
                 )
                 logger.info(f"{filename} has been downloaded! More info here: \n{headers}")
