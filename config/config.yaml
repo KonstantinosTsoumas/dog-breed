@@ -1,10 +1,10 @@
 artifacts_root: artifacts
 
 data_ingestion:
-    root_dir: Path
-    source_url: str
-    local_data_file: Path
-    unzip_dir: Path
+    root_dir: artifacts/data_ingestion
+    source_url: "https://github.com/KonstantinosTsoumas/dog-breed/tree/main/artifacts"
+    local_data_file: artifacts/data_ingestion/train.zip
+    unzip_dir: artifacts/data_ingestion
 
 
 prepare_base_model:
@@ -16,5 +16,3 @@ prepare_base_model:
     params_include_top: bool
     params_weights: str
     params_classes: int
-
-
