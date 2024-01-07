@@ -25,10 +25,10 @@ class DataIngestionTrainingPipeline:
 if __name__ == '__main__':
     # Exception handling for DVC included
     try:
-        logger.info(f">>>>>> {STAGE_NAME} has started <<<<<<")
+        logger.info(f"------ {STAGE_NAME} has started ------")
         obj = DataIngestionTrainingPipeline()
         obj.main()
-        logger.info(f">>>>>> {STAGE_NAME} has been completed <<<<<<\n\nx==========x")
+        logger.info(f"------  {STAGE_NAME} has been completed ------")
     except Exception as e:
         logger.exception(e)
         raise e
