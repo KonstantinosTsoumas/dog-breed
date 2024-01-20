@@ -3,7 +3,7 @@ import tensorflow as tf
 from src.pipeline.data_ingestion_01 import DataIngestionTrainingPipeline
 from src.pipeline.prepare_base_model_02 import PrepareBaseModelTrainingPipeline
 from src.pipeline.model_training_03 import ModelTrainingPipeline
-# from src.pipeline.stage_04_evaluation import EvaluationPipeline
+from src.pipeline.evaluation_04 import EvaluationPipeline
 
 
 STAGE_NAME = "Data Ingestion phase"
@@ -26,12 +26,23 @@ except Exception as e:
         logger.exception(e)
         raise e
 
-STAGE_NAME = "Training"
+STAGE_NAME = "Training phase"
 try:
    logger.info(f" {STAGE_NAME} started !")
    model_trainer = ModelTrainingPipeline()
    model_trainer.main()
    logger.info(f" {STAGE_NAME} has been completed.")
+except Exception as e:
+        logger.exception(e)
+        raise e
+
+STAGE_NAME = "Evaluation phase"
+try:
+   logger.info(f" {STAGE_NAME} started")
+   model_evalution = EvaluationPipeline()
+   model_evalution.main()
+   logger.info(f" {STAGE_NAME} has been completed.")
+
 except Exception as e:
         logger.exception(e)
         raise e
