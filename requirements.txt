@@ -3,6 +3,10 @@ pandas
 dvc
 notebook
 numpy
+sklearn
+pathlib
+dataclasses
+sklearn.preprocessing
 matplotlib
 seaborn
 python-box==6.0.2
