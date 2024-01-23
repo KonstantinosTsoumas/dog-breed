@@ -3,7 +3,6 @@ pandas
 dvc
 notebook
 numpy
-sklearn
 pathlib
 dataclasses
 scikit-learn
