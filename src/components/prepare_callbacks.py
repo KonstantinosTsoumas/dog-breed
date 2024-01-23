@@ -26,6 +26,26 @@ class PrepareCallback:
             save_best_only=True
         )
 
+    @property
+    def _create_early_stopping_callback(self):
+        return tf.keras.callbacks.EarlyStopping(
+            monitor='val_loss',
+            patience=10,
+            verbose=1,
+            mode='min',
+            restore_best_weights=True
+        )
+
+    @property
+    def _create_reduce_lr_callback(self):
+        return tf.keras.callbacks.ReduceLROnPlateau(
+            monitor='val_loss',
+            factor=0.1,
+            patience=5,
+            min_lr=1e-6,
+            verbose=1
+        )
+
     def get_tb_ckpt_callbacks(self):
         return [
             self._create_tb_callbacks,
