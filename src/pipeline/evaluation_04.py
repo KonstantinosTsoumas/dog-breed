@@ -12,8 +12,9 @@ class EvaluationPipeline:
         config = ConfigurationManager()
         val_config = config.get_evaluation_config()
         evaluation = Evaluation(val_config)
-        scores = evaluation.evaluation()
+        scores, y_true_binarized, predictions = evaluation.evaluation()
         evaluation.save_score(scores)
+        evaluation.plot_top_roc_curves(scores, y_true_binarized, predictions)
 
 
 if __name__ == '__main__':
