@@ -2,7 +2,6 @@ from src.config.configuration import ConfigurationManager
 from src.components.data_ingestion import DataIngestion
 from src import logger
 
-
 STAGE_NAME = "Step 01: Data Ingestion"
 
 class DataIngestionTrainingPipeline:
