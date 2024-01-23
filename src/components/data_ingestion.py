@@ -38,7 +38,7 @@ class DataIngestion:
 
     def extract_zip_file(self):
         """
-        This function extracts the zip file into the specified directory. It also, creates the directory if it does not exisqt.
+        This function extracts the zip file into the specified directory. It also, creates the directory if it does not exist.
         """
         unzip_path = self.config.unzip_dir
         os.makedirs(unzip_path, exist_ok=True)
