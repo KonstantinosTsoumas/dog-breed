@@ -59,7 +59,8 @@ class EvaluationConfig:
     """
     path_of_model: Path
     training_data: Path
-    artifacts : Path
+    artifacts: Path
+    figures: Path
     all_params: dict
     params_image_size: list
     params_batch_size: int
