@@ -2,8 +2,12 @@ from src.entity.config_entity import TrainingConfig
 import tensorflow as tf
 from pathlib import Path
 import pandas as pd
+import joblib
 from sklearn.preprocessing import LabelEncoder
-
+from tensorflow.keras.models import Model
+from tensorflow.keras.layers import Dense, Dropout, GlobalAveragePooling2D
+from tensorflow.keras.regularizers import l2
+from tensorflow.keras.optimizers import Adam
 
 class Training:
     def __init__(self, config: TrainingConfig):
@@ -45,6 +49,8 @@ class Training:
             img = tf.image.resize(img, self.config.params_image_size[:-1])
             img = tf.keras.applications.resnet_v2.preprocess_input(img)
             label = tf.one_hot(label, depth=120)
+            img = tf.image.random_flip_left_right(img)
+            img = tf.image.random_brightness(img, max_delta=0.2)
             return img, label
 
         # Create a dataset
@@ -61,7 +67,7 @@ class Training:
         train_ds = train_ds.batch(self.config.params_batch_size).prefetch(tf.data.AUTOTUNE)
         val_ds = val_ds.batch(self.config.params_batch_size).prefetch(tf.data.AUTOTUNE)
 
-        return train_ds, val_ds
+        return train_ds, val_ds, label_encoder
 
     @staticmethod
     def save_model(path: Path, model: tf.keras.Model):
@@ -70,7 +76,8 @@ class Training:
 
         Args:
             path : Path, the path where the model should (is) be saved.
-             model : tf.keras.Model, the trained TensorFlow model to be saved.
+            model : tf.keras.Model, the trained TensorFlow model to be saved.
+        returns: -
         """
         model.save(path)
 
@@ -81,8 +88,16 @@ class Training:
             callback_list : list, the list of callbacks to be used during training.
         """
 
-        train_ds, val_ds = self.create_tf_dataset()
+        train_ds, val_ds, label_encoder = self.create_tf_dataset()
 
+        # Compile the model
+        self.model.compile(
+            optimizer=Adam(learning_rate=0.001),
+            loss='categorical_crossentropy',
+            metrics=['accuracy']
+        )
+
+        # Fit the model
         self.model.fit(
             train_ds,
             epochs=self.config.params_epochs,
@@ -90,7 +105,12 @@ class Training:
             callbacks=callback_list
         )
 
+        # Save the trained model
         self.save_model(
             path=self.config.trained_model_path,
             model=self.model
         )
+
+        # Save the label encoder
+        label_encoder_path = Path(self.config.artifacts, 'label_encoder.pkl')
+        joblib.dump(label_encoder, label_encoder_path)
