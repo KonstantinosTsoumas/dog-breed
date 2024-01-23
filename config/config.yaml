@@ -5,7 +5,7 @@ data_ingestion:
     source_url: "https://github.com/KonstantinosTsoumas/dog-breed/tree/main/artifacts"
     local_source_file: artifacts/train.zip
     local_data_file: artifacts/train.zip  # Can later be switched to dev/prod environment if needed.
-    unzip_dir: artifacts/data_ingestion
+    unzip_dir: artifacts/data_ingestion/train
 
 
 prepare_base_model:
