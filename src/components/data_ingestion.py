@@ -5,6 +5,7 @@ from src import logger
 from src.utils.auxiliary_functions import get_size
 from src.entity.config_entity import DataIngestionConfig
 from pathlib import Path
+import shutil
 
 class DataIngestion:
     def __init__(self, config: DataIngestionConfig):
